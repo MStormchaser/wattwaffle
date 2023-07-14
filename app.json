@@ -15,12 +15,14 @@
       "**/*"
     ],
     "ios": {
+      "jsEngine": "hermes",
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "jsEngine": "hermes"
       }
     },
     "web": {
