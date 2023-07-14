@@ -1,3 +1,7 @@
+# temporary remove config files
+firebaseConfig/
+
+
 node_modules/
 .expo/
 dist/
