@@ -3,7 +3,6 @@ import React from "react";
 import { ProgressChart } from "react-native-chart-kit";
 
 const containerWidth = Dimensions.get("window").width / 2 - 32;
-console.log(containerWidth);
 
 const HomeProgressContainer = ({
   filter,
