@@ -7,17 +7,29 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../styles/styleComponents";
 import { useNavigation } from "@react-navigation/native";
+import { auth } from "../firebaseConfig";
 
 import MagicStar from "../assets/icons/magicstar.svg";
 import AppleLogo from "../assets/logos/apple.svg";
 import GoogleLogo from "../assets/logos/google.svg";
 import WattWaffleLogo from "../assets/logos/WattWaffl-tmp-logo.svg";
 
-const LoginScreen = () => {
-  const navigation = useNavigation();
+const LoginScreen = ({ navigation }) => {
+  // const navigation = useNavigation();
+
+  useEffect(() => {
+    // unsubscribe is a clean up function
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      console.log(authUser);
+      if (authUser) {
+        navigation.replace("Home");
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <SafeAreaView className="bg-primaryYellow flex-1">

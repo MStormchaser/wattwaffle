@@ -14,9 +14,10 @@ import ArrowLeft from "../assets/icons/ArrowLeft.svg";
 // import ArrowLeft from "react-native-heroicons/solid"
 import { useState } from "react";
 import { auth } from "../firebaseConfig";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-const SignUpScreen = () => {
-  const navigation = useNavigation();
+const SignUpScreen = ({ navigation }) => {
+  // const navigation = useNavigation();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,12 +27,14 @@ const SignUpScreen = () => {
   const [isCheckedNewsletter, setCheckedNewsletter] = useState(false);
 
   const register = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
+    auth;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
         // Signed in
-        authUser.user.update({
-          displayName: firstName,
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        }).then(() => {
+          console.log(auth.currentUser.displayName);
         });
       })
       .catch((error) => alert(error.message));
@@ -81,7 +84,6 @@ const SignUpScreen = () => {
             secureTextEntry={true}
             value={password}
             onChangeText={(text) => setPassword(text)}
-            onSubmitEditing={register}
           ></TextInput>
         </View>
         {/* Terms Conditions */}
@@ -112,6 +114,7 @@ const SignUpScreen = () => {
         <TouchableOpacity
           style={isCheckedTerms ? styles.buttonDark : styles.buttonDarkDisabled}
           disabled={!isCheckedTerms}
+          onPress={register}
         >
           <Text className="text-grayLight1 font-bold text-lg ">Sign Up</Text>
         </TouchableOpacity>
